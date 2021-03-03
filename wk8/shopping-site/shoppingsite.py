@@ -11,6 +11,8 @@ import jinja2
 
 import melons
 
+import session from flask
+
 app = Flask(__name__)
 
 # A secret key is needed to use Flask sessioning features
@@ -50,7 +52,7 @@ def show_melon(melon_id):
     Show all info about a melon. Also, provide a button to buy that melon.
     """
 
-    melon = melons.get_by_id("meli")
+    melon = melons.get_by_id(melon_id)
     print(melon)
     return render_template("melon_details.html",
                            display_melon=melon)
@@ -59,6 +61,13 @@ def show_melon(melon_id):
 @app.route("/cart")
 def show_shopping_cart():
     """Display content of shopping cart."""
+
+    cart_total = 0 #a variable to hold the total cost of the order
+    session["cart"] = {} 
+    melons_order = [] #create a list to hold melon objects
+
+    # for melons_id, in melons.melon_types.items():
+
 
     # TODO: Display the contents of the shopping cart.
 
@@ -77,6 +86,8 @@ def show_shopping_cart():
     #
     # Make sure your function can also handle the case wherein no cart has
     # been added to the session
+
+    
 
     return render_template("cart.html")
 
